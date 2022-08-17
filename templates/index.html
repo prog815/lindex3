@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Локальный поиск (Версия 3) {% endblock %}</h1>
+
+    <form action="" method="GET" target=_self>
+        <input type="text" id="poisk" name="poisk" value="{{ poisk }}">
+        <input type="submit" value="ПОИСК">
+    </form>
+
+    
+
+{% endblock %}
