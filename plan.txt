@@ -31,8 +31,18 @@
   - базовый шаблонов
   - шаблон индекса
 
+Команды для Docker:
+docker build --pull --rm -f "Dockerfile" -t lindex3:latest .
+docker run -d -p80:5000 --mount type=bind,source=C:\Users\prog\Downloads,target=/app/static/files,readonly --name lindex3 lindex3
+docker container ls
+docker rm -f lindex3
+docker exec -it lindex3 /bin/sh
+docker image ls 
+docker image prune
+
 План (этапы):
 + первичный запуск (самая простейшая)
++ первая сборка
 - простое сканирование каталога
   - сканирование каталога
 - ссылка на предыдущую версию в описании
