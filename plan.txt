@@ -30,16 +30,28 @@
   - базовый шаблонов
   - шаблон индекса
 
+# --------------------------------------------------------
+
+Репозиторий:
+https://github.com/prog815/lindex3
+
+# --------------------------------------------------------
+
 Команды для Docker:
 docker build --pull --rm -f "Dockerfile" -t lindex3:latest .
-docker run -d -p80:5000 --mount type=bind,source=C:\Users\prog\Downloads,target=/app/static/files,readonly --name lindex3 lindex3
+docker run -d -p80:5000 --mount type=bind,source=C:\Users,target=/app/static/files,readonly --name lindex3 lindex3
 docker container ls
 docker rm -f lindex3
 docker exec -it lindex3 /bin/sh
 docker image ls 
 docker image prune
 
+# --------------------------------------------------------
+
+Контейнер тестируем здесь:
 http://localhost/
+
+# --------------------------------------------------------
 
 План (этапы):
 + первичный запуск (самая простейшая)
@@ -49,10 +61,10 @@ http://localhost/
   + сборка индекса
   + в крон
   + контроль в контейнере
-- вывод результатов
-  - вывод общего списка
-  - передача параметров поиска
-  - подключение поиска по словам
++ вывод результатов
+  + вывод общего списка
+  + передача параметров поиска
+  + подключение поиска по словам
 - облагородить выдачу
 - описание
   - ссылка на предыдущую версию в описании

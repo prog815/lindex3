@@ -20,16 +20,18 @@ def index():
             poisk = ""
         
         for u in poisk.split():
-            uslovie += " AND word LIKE '" + u.lower() + "%'"
-       
+            uslovie += " AND ROWID IN (SELECT file_rowid FROM `index` WHERE word_rowid IN (SELECT ROWID FROM words WHERE word LIKE '" + u.lower() + "%'))"
+        
         page = request.args.get('page')
         if page is None:
             page = 1
         else:
             page = int(page)
     
+    print(uslovie)
+    
     conn = get_db_connection()
-    rows_cnt = conn.execute('SELECT count(*) rows_cnt FROM files ORDER BY file_ok_time DESC').fetchone()
+    rows_cnt = conn.execute('SELECT count(*) rows_cnt FROM files WHERE 1' + uslovie).fetchone()
     conn.close()
     if rows_cnt is None:
         rows_cnt = 0
@@ -37,7 +39,7 @@ def index():
         rows_cnt = rows_cnt['rows_cnt']
     
     conn = get_db_connection()
-    rows = conn.execute('SELECT file_path FROM files ORDER BY file_ok_time DESC' + ' LIMIT ' + str((page-1)*10) + ',10').fetchall()
+    rows = conn.execute('SELECT file_path FROM files WHERE 1 ' + uslovie + ' ORDER BY file_ok_time DESC LIMIT ' + str((page-1)*10) + ',10').fetchall()
     conn.close()
     
     pages = [p for p in range(1,math.ceil(rows_cnt/10)+1)]  
