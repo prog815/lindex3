@@ -8,6 +8,22 @@
         <input type="submit" value="ПОИСК">
     </form>
 
-    
+    {% for row in rows %}
+        <h2> <a href={{ url_for('static', filename='files/' + row['file_path']) }} download="">{{ row['file_path'] }}</a></h2>
+    {% endfor %}
+
+    <div>
+        {% for p in pages %}
+            {% if p == page %}
+                <b><a href={{ url_for('index',page=p,poisk=request.args.get('poisk')) }}>[{{ p }}]</a></b> 
+            {% else %}
+                {% if p == '.' %}
+                    . 
+                {% else %}
+                    <a href={{ url_for('index',page=p,poisk=request.args.get('poisk')) }}>{{ p }}</a> 
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
 
 {% endblock %}
