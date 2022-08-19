@@ -52,7 +52,7 @@ with conn:
                             file_rowid = con.execute('INSERT INTO files (file_path,file_hash,file_ok_time) VALUES (?,?,?)',(p,h,t)).lastrowid
                             
                             # бежим по словам из пути к файлу
-                            for w in set(re.split('[^\w\d\_]+',p.replace('_',' ').lower())):
+                            for w in lib.split_text(p):
                                 if len(w) > 0:
                                     try:
                                         # добавляем новое слово и берем его номер
@@ -76,4 +76,8 @@ with conn:
         except:
             # неудачно сканировали папку
             con.execute('UPDATE dirs SET dir_scan_time=? WHERE dir_hash=?',(lib.time_now(),hash))
+            
+    for tab in ('dirs','files','`index`','words'):
+        print(tab,conn.execute('SELECT count(*) FROM ' + tab).fetchone())
+    
         

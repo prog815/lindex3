@@ -1,5 +1,9 @@
 import hashlib
 import time
+import re
+
+def split_text(text):
+    return list(filter(lambda t: len(t)>0,list(set(re.split('[^\w\d\_]+',text.replace('_',' ').lower())))))
 
 # -------------------------------------------------------------
 
